@@ -10,7 +10,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/retro2call" />
-            <option value="$PROJECT_DIR$/retro2call2" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

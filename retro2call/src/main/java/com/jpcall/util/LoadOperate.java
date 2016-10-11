@@ -23,7 +23,7 @@ import com.jpcall.dao.OnOpeListener;
  * 该操作类可以实现在一个View上进行转圈处理，当然也可以显示其他状态（例如没有数据，没有网络，加载失败）
  * 注意：传入的View的父布局暂时不能是RelativeLayout，而且传入的View最好不要设置内边距
  */
-public class LoadOperate implements Runnable, View.OnClickListener,OnOpeListener {
+public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListener {
 
     private static int mGlobalLoading = 0;//转圈的图片id
     private static int mGlobalFail = 0;//失败的图片id
@@ -184,7 +184,7 @@ public class LoadOperate implements Runnable, View.OnClickListener,OnOpeListener
                 loadingLayout.setVisibility(View.GONE);
                 break;
             }
-            case TAG_DISMISS:{
+            case TAG_DISMISS: {
                 dismiss();
                 break;
             }
@@ -202,13 +202,15 @@ public class LoadOperate implements Runnable, View.OnClickListener,OnOpeListener
             return;
         }
         ImageView loadView = getLoadView(TAG_NODATA);
-        loadView.setImageResource(this.params.noDataPic == 0 ? R.mipmap.ic_nodata : this.params.noDataPic);
+        loadView.setImageResource(this.params.noDataPic == 0 ?
+                (this.mGlobalNoData == 0 ? R.mipmap.ic_nodata : this.mGlobalNoData) : this.params.noDataPic);
         loadView.clearAnimation();
         getIconView().setVisibility(View.GONE);
     }
 
 
     //2.0
+
     /**
      * 加载中的显示
      */
@@ -252,6 +254,7 @@ public class LoadOperate implements Runnable, View.OnClickListener,OnOpeListener
 
 
     //2.0
+
     /**
      * 加载失败的显示
      */
@@ -465,7 +468,6 @@ public class LoadOperate implements Runnable, View.OnClickListener,OnOpeListener
         }
         return false;
     }
-
 
 
     private OnLoadListener onLoadListener;

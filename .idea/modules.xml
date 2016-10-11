@@ -4,7 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Retrofit2Call.iml" filepath="$PROJECT_DIR$/Retrofit2Call.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/retro2call/retro2call.iml" filepath="$PROJECT_DIR$/retro2call/retro2call.iml" />
+      <module fileurl="file://$PROJECT_DIR$/retro2call/retro2call.iml" filepath="$PROJECT_DIR$/retro2call/retro2call.iml" />
+      <module fileurl="file://$PROJECT_DIR$/retro2call-master.iml" filepath="$PROJECT_DIR$/retro2call-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/retro2call2/retro2call2.iml" filepath="$PROJECT_DIR$/retro2call2/retro2call2.iml" />
     </modules>
   </component>
