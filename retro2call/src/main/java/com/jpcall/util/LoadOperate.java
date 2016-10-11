@@ -194,7 +194,7 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
     }
 
     /**
-     * 没有数据的显示
+     * 没有数据的显示，处理过后的
      */
     public void showNoData() {
         currentState = TAG_NODATA;
