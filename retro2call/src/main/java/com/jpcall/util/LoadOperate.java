@@ -203,7 +203,7 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
         }
         ImageView loadView = getLoadView(TAG_NODATA);
         loadView.setImageResource(this.params.noDataPic == 0 ?
-                (this.mGlobalNoData == 0 ? R.mipmap.ic_nodata : this.mGlobalNoData) : this.params.noDataPic);
+                (mGlobalNoData == 0 ? R.mipmap.ic_nodata : mGlobalNoData) : this.params.noDataPic);
         loadView.clearAnimation();
         getIconView().setVisibility(View.GONE);
     }
@@ -383,8 +383,8 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
         //是否显示白色背景，默认false，显示透明效果
         //显示白色背景的主要是针对于有些情况下是需要遮挡的时候，此时就可以设置为true
         private boolean isBackGround = false;
-        //是否有头部，如果为false那么就会盖住头部，此时头部是不能被点击，默认true
-        private boolean isHaveHead = true;
+        //是否有头部，如果为false那么就会盖住头部，此时头部是不能被点击，默认false
+        private boolean isHaveHead = false;
         //是不是在Dialog中请求接口，默认false
         private boolean isDialog = false;
 
