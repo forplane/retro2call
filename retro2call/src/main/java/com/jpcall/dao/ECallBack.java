@@ -129,7 +129,9 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
         this.call = call.clone();
         call.cancel();
         showError();
-        eFailure(t.getMessage());
+        boolean networkAvailable = LoadOperate.isNetworkAvailable(mContext);
+        String msg = networkAvailable?t.getMessage():"请连接网络";
+        eFailure(msg);
 //        RequestBody body = call.request().body();
 
     }
