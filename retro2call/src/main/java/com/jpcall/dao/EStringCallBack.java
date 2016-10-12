@@ -17,19 +17,22 @@ import java.util.List;
  */
 
 public abstract class EStringCallBack extends ECallBack<YdInfo> implements ECallTypeListener {
-
-
-    public EStringCallBack(LoadOperate load) {
-        super(load);
+    public EStringCallBack(Object object) {
+        super(object);
     }
 
-    public EStringCallBack(Context mContext) {
-        super(mContext);
-    }
 
-    public EStringCallBack(OnOpeListener opeListener) {
-        super(opeListener);
-    }
+//    public EStringCallBack(LoadOperate load) {
+//        super(load);
+//    }
+//
+//    public EStringCallBack(Context mContext) {
+//        super(mContext);
+//    }
+//
+//    public EStringCallBack(OnOpeListener opeListener) {
+//        super(opeListener);
+//    }
 
     @Override
     protected void typeSomeThing(String bodyString) {

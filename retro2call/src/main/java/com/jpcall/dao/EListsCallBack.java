@@ -21,20 +21,20 @@ public abstract class EListsCallBack extends ECallBack<YdInfo> implements ECallT
 
     private HashMap<String, Class> hashMap;
 
-    public EListsCallBack(LoadOperate load, HashMap<String, Class> hashMap) {
-        super(load);
+    public EListsCallBack(Object object, HashMap<String, Class> hashMap) {
+        super(object);
         this.hashMap = hashMap;
     }
 
-    public EListsCallBack(Context mContext, HashMap<String, Class> hashMap) {
-        super(mContext);
-        this.hashMap = hashMap;
-    }
-
-    public EListsCallBack(OnOpeListener opeListener, HashMap<String, Class> hashMap) {
-        super(opeListener);
-        this.hashMap = hashMap;
-    }
+//    public EListsCallBack(Context mContext, HashMap<String, Class> hashMap) {
+//        super(mContext);
+//        this.hashMap = hashMap;
+//    }
+//
+//    public EListsCallBack(OnOpeListener opeListener, HashMap<String, Class> hashMap) {
+//        super(opeListener);
+//        this.hashMap = hashMap;
+//    }
 
     @Override
     protected void typeSomeThing(String bodyString) {

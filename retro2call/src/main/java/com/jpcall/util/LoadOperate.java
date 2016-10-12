@@ -8,6 +8,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -158,7 +160,9 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
         //转圈动画
         rotateAnimation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setDuration(1000);
+        rotateAnimation.setDuration(1300);
+//        rotateAnimation.setFillAfter(true);
+//        rotateAnimation.setInterpolator(new LinearInterpolator());
         rotateAnimation.setRepeatCount(-1);
 
         isPost = true;

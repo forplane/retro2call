@@ -18,21 +18,26 @@ import java.util.List;
 public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
     private String beanKey;
 
-
-    public EListCallBack(LoadOperate load, Class<T> t, String key) {
-        super(load, t);
+    public EListCallBack(Object object, Class<T> t, String key) {
+        super(object, t);
         this.beanKey = key;
     }
 
-    public EListCallBack(Context mContext, Class<T> t, String key) {
-        super(mContext, t);
-        this.beanKey = key;
-    }
 
-    public EListCallBack(OnOpeListener opeListener, Class<T> t, String beanKey) {
-        super(opeListener, t);
-        this.beanKey = beanKey;
-    }
+//    public EListCallBack(LoadOperate load, Class<T> t, String key) {
+//        super(load, t);
+//        this.beanKey = key;
+//    }
+//
+//    public EListCallBack(Context mContext, Class<T> t, String key) {
+//        super(mContext, t);
+//        this.beanKey = key;
+//    }
+//
+//    public EListCallBack(OnOpeListener opeListener, Class<T> t, String beanKey) {
+//        super(opeListener, t);
+//        this.beanKey = beanKey;
+//    }
 
     @Override
     protected void typeSomeThing(String bodyString) {

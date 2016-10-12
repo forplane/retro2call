@@ -17,16 +17,26 @@ import java.util.List;
 
 public abstract class EBeanCallBack<T> extends EIBeanCallBack<T>  {
 
-    public EBeanCallBack(LoadOperate load, Class<T> t) {
-        super(load,t);
-    }
-    public EBeanCallBack(Context mContext, Class<T> t) {
-        super(mContext,t);
+
+    public EBeanCallBack(Object object, Class<T> t) {
+        super(object, t);
     }
 
-    public EBeanCallBack(OnOpeListener opeListener, Class<T> t) {
-        super(opeListener, t);
-    }
+//    public EBeanCallBack(LoadOperate load, Class<T> t) {
+//        super(load,t);
+//    }
+//    public EBeanCallBack(Context mContext, Class<T> t) {
+//        super(mContext,t);
+//    }
+//
+//    public EBeanCallBack(OnOpeListener opeListener, Class<T> t) {
+//        super(opeListener, t);
+//    }
+
+
+//    public EBeanCallBack(Object object,Class<T> t){
+//
+//    }
 
     @Override
     protected void typeSomeThing(String bodyString) {
