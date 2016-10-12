@@ -37,25 +37,38 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
 
 
     //2.0
-    @Deprecated
-    /**
-     *统一使用public ECallBack(OnOpeListener opeListener)
-     */
-    public ECallBack(LoadOperate load) {
-        this.mContext = load.getContext();
-        this.load = load;
-        this.load.setOnLoadListener(this);
-    }
+//    @Deprecated
+//    /**
+//     *统一使用public ECallBack(OnOpeListener opeListener)
+//     */
+//    public ECallBack(LoadOperate load) {
+//        this.mContext = load.getContext();
+//        this.load = load;
+//        this.load.setOnLoadListener(this);
+//    }
+//
+//    //2.0
+//    public ECallBack(OnOpeListener opeListener) {
+//        this.opeListener = opeListener;
+//        this.opeListener.setOnLoadListener(this);
+//        this.mContext = opeListener.getOpeContext();
+//    }
+//    //2.0
+//    public ECallBack(Context mContext) {
+//        this.mContext = mContext;
+//    }
 
-    //2.0
-    public ECallBack(OnOpeListener opeListener) {
-        this.opeListener = opeListener;
-        this.opeListener.setOnLoadListener(this);
-        this.mContext = opeListener.getOpeContext();
-    }
-    //2.0
-    public ECallBack(Context mContext) {
-        this.mContext = mContext;
+    public ECallBack(Object object){
+        if (object instanceof Context){
+            this.mContext= (Context) object;
+        }else if (object instanceof OnOpeListener){
+            this.opeListener = (OnOpeListener) object;
+            this.opeListener.setOnLoadListener(this);
+            this.mContext = opeListener.getOpeContext();
+        }else{
+            throw new RuntimeException("非法操作，只能传入Context对象或者实现了OnOpeListener的对象");
+        }
+
     }
 
 
