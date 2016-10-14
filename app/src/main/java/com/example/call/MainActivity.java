@@ -2,25 +2,42 @@ package com.example.call;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.example.call.bean.UserBean;
-import com.jpcall.dao.EBeanCallBack;
 import com.jpcall.util.LoadOperate;
-
-import org.json.JSONObject;
 
 public class MainActivity extends Activity {
 
+    private ViewGroup mView;
+    private LoadOperate load;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-
-        new EBeanCallBack<UserBean>(new UserBean(),UserBean.class){
+        mView = (ViewGroup) findViewById(R.id.layout);
+        findViewById(R.id.txt).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void typeBean(UserBean userBean) {
-
+            public void onClick(View v) {
+                Log.i("", "");
             }
-        };
+        });
+        load=new LoadOperate.Builder(this,mView).build();
+        load.showLoading();
+//        new EBeanCallBack<UserBean>(new UserBean(),UserBean.class){
+//            @Override
+//            public void typeBean(UserBean userBean) {
+//
+//            }
+//        };
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("", "");
     }
 }

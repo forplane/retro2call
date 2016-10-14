@@ -8,8 +8,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -26,6 +24,8 @@ import com.jpcall.dao.OnOpeListener;
  * 注意：传入的View的父布局暂时不能是RelativeLayout，而且传入的View最好不要设置内边距
  */
 public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListener {
+
+    private static final String TAG=LoadOperate.class.getCanonicalName();
 
     private static int mGlobalLoading = 0;//转圈的图片id
     private static int mGlobalFail = 0;//失败的图片id
@@ -78,7 +78,8 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
     @Override
     public void run() {
         ViewGroup viewParent = (ViewGroup) params.view.getParent();
-        int position = viewParent.indexOfChild(viewParent);
+
+        int position = viewParent.indexOfChild(params.view);
 
         ViewGroup.MarginLayoutParams layoutP = (ViewGroup.MarginLayoutParams) params.view.getLayoutParams();
         //获得之前的View的宽高和在父布局当中的外边距
@@ -91,6 +92,7 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
 
 
         FrameLayout frameLayout = new FrameLayout(params.mContext);
+        frameLayout.setTag(this);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width,
                 height);
         layoutParams.gravity = Gravity.CENTER;
@@ -444,7 +446,14 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
         }
 
         public LoadOperate build() {
-            LoadOperate loadTool = new LoadOperate(params);
+            ViewGroup parent = (ViewGroup) params.view.getParent();
+            Object tag = parent.getTag();
+            LoadOperate loadTool;
+            if (tag != null && tag instanceof LoadOperate) {
+                loadTool= (LoadOperate) tag;
+            }else{
+                loadTool = new LoadOperate(params);
+            }
             return loadTool;
         }
     }
