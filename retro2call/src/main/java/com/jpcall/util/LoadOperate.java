@@ -25,7 +25,7 @@ import com.jpcall.dao.OnOpeListener;
  */
 public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListener {
 
-    private static final String TAG=LoadOperate.class.getCanonicalName();
+    private static final String TAG = LoadOperate.class.getCanonicalName();
 
     private static int mGlobalLoading = 0;//转圈的图片id
     private static int mGlobalFail = 0;//失败的图片id
@@ -447,12 +447,16 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
 
         public LoadOperate build() {
             ViewGroup parent = (ViewGroup) params.view.getParent();
-            Object tag = parent.getTag();
             LoadOperate loadTool;
-            if (tag != null && tag instanceof LoadOperate) {
-                loadTool= (LoadOperate) tag;
-            }else{
+            if (parent == null) {
                 loadTool = new LoadOperate(params);
+            } else {
+                Object tag = parent.getTag();
+                if (tag != null && tag instanceof LoadOperate) {
+                    loadTool = (LoadOperate) tag;
+                } else {
+                    loadTool = new LoadOperate(params);
+                }
             }
             return loadTool;
         }
