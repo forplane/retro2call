@@ -8,3 +8,20 @@
         boolean networkAvailable = LoadOperate.isNetworkAvailable(mContext);
         String msg = networkAvailable?t.getMessage():"请连接网络";
         eFailure(msg);
+16-10-14
+        public LoadOperate build() {
+            ViewGroup parent = (ViewGroup) params.view.getParent();
+            LoadOperate loadTool;
+            if (parent == null) {
+                loadTool = new LoadOperate(params);
+            } else {
+                Object tag = parent.getTag();
+                if (tag != null && tag instanceof LoadOperate) {
+                    loadTool = (LoadOperate) tag;
+                } else {
+                    loadTool = new LoadOperate(params);
+                }
+            }
+            return loadTool;
+        }
+        判断是否已经有添加过load，预防重复添加
