@@ -1,10 +1,7 @@
 package com.jpcall.dao;
 
 
-import android.content.Context;
-
 import com.jpcall.bean.YdInfo;
-import com.jpcall.util.LoadOperate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,7 +62,7 @@ public abstract class EStringCallBack extends ECallBack<YdInfo> implements ECall
     }
 
     @Override
-    protected void dealNoData(boolean first) {
+    public void dealNoData(boolean first) {
         //do NoThing
     }
 }

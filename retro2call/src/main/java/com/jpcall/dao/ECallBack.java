@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jpcall.bean.YdInfo;
+import com.jpcall.util.FailDeal;
 import com.jpcall.util.LoadOperate;
 import com.jpcall.util.YdInfoConfig;
 
@@ -57,6 +58,15 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
 //    public ECallBack(Context mContext) {
 //        this.mContext = mContext;
 //    }
+
+
+    public YdInfo getYdInfo() {
+        return ydInfo;
+    }
+
+    public Context getmContext() {
+        return mContext;
+    }
 
     public ECallBack(Object object){
         if (object instanceof Context){
@@ -128,10 +138,20 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
     public final void onFailure(Call<YdInfo> call, Throwable t) {
         this.call = call.clone();
         call.cancel();
-        showError();
-        boolean networkAvailable = LoadOperate.isNetworkAvailable(mContext);
-        String msg = networkAvailable?t.getMessage():"请连接网络";
-        eFailure(msg);
+        ydInfo=new YdInfo();//因为只要是走这里的失败，ydInfo必定为null，在这里弄一个
+        //出来的目的就是供处理的来设置数据
+        boolean deal = FailDeal.obj(this, t.getMessage()).Deal();
+        //没有处理，统一Toast
+        if (!deal) {
+            eFailure("未知错误");
+        }
+
+////        1：JSON解析出问题。显示没有数据图片，并且toast
+//
+//        showError();
+//        boolean networkAvailable = LoadOperate.isNetworkAvailable(mContext);
+//        String msg = networkAvailable?t.getMessage():"请连接网络";
+//        eFailure(msg);
 //        RequestBody body = call.request().body();
 
     }
@@ -162,9 +182,10 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
     protected abstract void typeSomeThing(String bodyString);
 
     /**
-     * 具体处理没有数据的情况,是否首次请求
+     * 具体处理没有数据的情况,是否首次请求，默认回调过去都是true
+     * 如果自己需要处理没有数据的情况，重写后，然后选择是否super
      */
-    protected void dealNoData(boolean first) {
+    public void dealNoData(boolean first) {
         if (first && (load != null || opeListener != null)) {
             if (load != null) {
                 load.showNoData();
@@ -223,17 +244,6 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
 
     @Override
     public void loading() {
-
-    }
-
-
-    @Override
-    public void noData() {
-
-    }
-
-    @Override
-    public void noNet() {
         if (LoadOperate.isNetworkAvailable(mContext)) {
             if (load != null) {
                 load.showLoading();
@@ -244,6 +254,17 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
         } else {
             Toast.makeText(mContext, "联网了吗?", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    @Override
+    public void noData() {
+
+    }
+
+    @Override
+    public void noNet() {
+
 
     }
 }

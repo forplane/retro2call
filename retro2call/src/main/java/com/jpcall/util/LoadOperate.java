@@ -353,7 +353,7 @@ public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListene
 //                Toast.makeText(params.mContext, "没有网络，点击重试", Toast.LENGTH_SHORT).show();
 
                 if (onLoadListener != null) {
-                    onLoadListener.noNet();
+                    onLoadListener.loading();//没有网络，点击，所以需要重新请求数据
                 }
                 break;
             }
