@@ -51,6 +51,10 @@ public class FailDeal {
         public boolean Deal() {
             //表示gson解析出现问题的
             Pattern pattern = Pattern.compile(".*at line.*column.*");
+            if (msg == null) {
+                //直接截取，个别原因报错的时候，是null的
+                return false;
+            }
             Matcher matcher = pattern.matcher(msg);
             boolean deal = matcher.matches();
             if (deal) {
