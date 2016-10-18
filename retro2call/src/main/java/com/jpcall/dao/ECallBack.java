@@ -144,6 +144,7 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
         //没有处理，统一Toast
         if (!deal) {
             eFailure("未知错误");
+            showError();
         }
 
 ////        1：JSON解析出问题。显示没有数据图片，并且toast

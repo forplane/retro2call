@@ -82,7 +82,8 @@ public class FailDeal {
                 return true;
             } else {
                 //有链接wifi，但是服务器有问题，或者服务器没启动，php，nginx等一起服务器相关的问题
-                if (msg.contains("failed to connect to")) {
+                if (msg.contains("failed to connect to")
+                        || msg.contains("No address associated with hostname")) {
                     String msg = "网络异常，请检查网络";
                     callBack.eFailure(msg);
                     return true;
