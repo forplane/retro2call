@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jpcall.bean.YdInfo;
+import com.jpcall.util.FailLog;
 import com.jpcall.util.LoadOperate;
 
 import java.io.IOException;
@@ -63,6 +64,8 @@ public class MainActivity extends Activity {
 //        第一种，状态正常，输出ok(status=200) echo '';
 //        http://192.168.0.196/test.php
         Call<YdInfo> test_php = TestApiConfig.createRetrofit("http://120.24.176.41/").create(TestApi.class).test_php();
+        Call<YdInfo> test_php1 = TestApiConfig.createRetrofit("http://120.24.176.41/").create(TestApi.class).test_php();
+        Call<YdInfo> test_php2 = TestApiConfig.createRetrofit("http://120.24.176.41/").create(TestApi.class).test_php();
 //
 ////        第二种情况，php文件不存在，或已被删除(status=404)
 ////        http://192.168.0.196/test1.php
@@ -95,6 +98,8 @@ public class MainActivity extends Activity {
 
 
         list.add(test_php);
+        list.add(test_php1);
+        list.add(test_php2);
 //        list.add(test1_php);
 //        list.add(test2_php);
 //        list.add(test3_php);
@@ -145,6 +150,7 @@ public class MainActivity extends Activity {
 
                     }
                     Log.i(CALLTAG,"onFailure" + num+ message);
+                    FailLog.instance.writeFailMsg(t,MainActivity.this);
 
                 }
             });

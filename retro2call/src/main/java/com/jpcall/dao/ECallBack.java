@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.jpcall.bean.YdInfo;
 import com.jpcall.util.FailDeal;
+import com.jpcall.util.FailLog;
 import com.jpcall.util.LoadOperate;
 import com.jpcall.util.YdInfoConfig;
 
@@ -145,6 +146,8 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
         if (!deal) {
             eFailure("未知错误");
             showError();
+
+            FailLog.instance.writeFailMsg(t,mContext);
         }
 
 ////        1：JSON解析出问题。显示没有数据图片，并且toast
