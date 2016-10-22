@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.jpcall.bean.YdInfo;
 import com.jpcall.util.FailLog;
 import com.jpcall.util.LoadOperate;
 
-import java.io.IOException;
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +31,7 @@ public class MainActivity extends Activity {
 
     private ViewGroup mView;
     private LoadOperate load;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,7 @@ public class MainActivity extends Activity {
                 Log.i("", "");
             }
         });
-        load=new LoadOperate.Builder(this,mView).build();
+        load = new LoadOperate.Builder(this, mView).build();
         load.showLoading();
 
     }
@@ -50,16 +53,15 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         Log.i("", "");
-        testCallType();
+        testCallType(BSuper.class);
     }
-
 
 
     //一下是测试服务器404 没有响应，死机的情况
 
-    private final static String CALLTAG="CALLTAG";
+    private final static String CALLTAG = "CALLTAG";
 
-    public void testCallType() {
+    public <T> void testCallType(final Class<T> t) {
         List<Call<YdInfo>> list = new ArrayList<>();
 //        第一种，状态正常，输出ok(status=200) echo '';
 //        http://192.168.0.196/test.php
@@ -110,26 +112,42 @@ public class MainActivity extends Activity {
         for (int i = 0; i < list.size(); i++) {
             Call<YdInfo> call = list.get(i);
             final int num = i;
-           call.enqueue(new Callback<YdInfo>() {
+            call.enqueue(new Callback<YdInfo>() {
                 @Override
                 public void onResponse(Call<YdInfo> call, retrofit2.Response<YdInfo> response) {
+                    List<T> mList = new ArrayList<T>();
                     try {
                         int code = response.code();
                         YdInfo body = response.body();
-                        if (body!=null) {
+                        if (body != null) {
 //                            byte[] bytes = body.bytes();
 //                            String s = new String(bytes);
                             Log.i(CALLTAG, "onResponse" + num + "succes\t s=" + body.getYdBody());
-                        }else{
+                        } else {
                             ResponseBody errorBody = response.errorBody();
                             byte[] bytes = errorBody.bytes();
                             String s = new String(bytes);
                             Log.i(CALLTAG, "onResponse" + num + "succes\t s=" + s);
                         }
-                    } catch (IOException e) {
+
+
+                        Gson gson = new Gson();
+                        String mm = "[{\"name\": \"类型1\",\"type\": 1,\"one\": \"这个是类型1的内容\"},{\"name\": \"类型2\",\"type\": 2,\"two\": \"这个是类型2的内容\"}]";
+                        JSONArray ar = new JSONArray(mm);
+                        for (int i = 0; i < ar.length(); i++) {
+                            String string = ar.getString(i);
+                            //得到泛型T后，然后反射注解获取type类型
+                            T bSuper = gson.fromJson(string, t);
+                            int type = 0;//这里反射得到注解为类型的type值
+                            Class[] classes = {OneB.class, TwoB.class};//这里反射注解得到关联的字bean.class
+                            Class aClass = classes[type];//得到具体的子类class
+                            T o = (T) gson.fromJson(string, aClass);
+                            mList.add(o);
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Log.i(CALLTAG,"onResponse" + num+ "success");
+                    Log.i(CALLTAG, "onResponse" + num + "success");
 
                 }
 
@@ -141,7 +159,7 @@ public class MainActivity extends Activity {
                     //表示gson解析出现问题的
                     Pattern pattern = Pattern.compile(".*at line.*column.*");
                     Matcher matcher = pattern.matcher(message);
-                    boolean b= matcher.matches();
+                    boolean b = matcher.matches();
 
                     if (message.contains("Failed to connect")) {
 
@@ -149,8 +167,8 @@ public class MainActivity extends Activity {
                     if (message == null) {
 
                     }
-                    Log.i(CALLTAG,"onFailure" + num+ message);
-                    FailLog.instance.writeFailMsg(t,MainActivity.this);
+                    Log.i(CALLTAG, "onFailure" + num + message);
+                    FailLog.instance.writeFailMsg(t, MainActivity.this);
 
                 }
             });
@@ -175,6 +193,47 @@ public class MainActivity extends Activity {
 
     }
 
+
+    class BSuper {
+        String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+    }
+
+    class OneB extends BSuper {
+        String one;
+
+        public String getOne() {
+            return one;
+        }
+
+        public void setOne(String one) {
+            this.one = one;
+        }
+
+    }
+
+    class TwoB extends BSuper {
+        String two;
+
+        public String getTwo() {
+            return two;
+        }
+
+        public void setTwo(String two) {
+            this.two = two;
+        }
+
+
+    }
 
 
     private interface TestApi {

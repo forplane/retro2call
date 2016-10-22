@@ -27,6 +27,7 @@ public class FailLog {
 
     public void writeFailMsg(Throwable t, Context ctx) {
         appContext = ctx.getApplicationContext();
+
         String msg = t.getMessage() == null ? t.toString() : t.getMessage();
         LogThread logThread = new LogThread(msg);
         executor.execute(logThread);
