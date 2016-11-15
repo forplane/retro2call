@@ -1,6 +1,7 @@
 package com.jpcall.dao;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.jpcall.bean.CommonJson4List;
 import com.jpcall.util.LoadOperate;
@@ -74,4 +75,13 @@ public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
     }
 
 
+    @Override
+    public void dealNoData(boolean first) {
+        String page = this.params.get("page");
+        if (page.equals("0")) {
+            super.dealNoData(first);
+        }else{
+            Toast.makeText(mContext, this.ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
+        }
+    }
 }
