@@ -77,11 +77,16 @@ public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
 
     @Override
     public void dealNoData(boolean first) {
-        String page = this.params.get("page");
-        if (page.equals("0")) {
+        if (!first) {
             super.dealNoData(first);
-        }else{
-            Toast.makeText(mContext, this.ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
+        } else {
+            String page = this.params.get("request_page");
+            if (page == null || page.equals("1")) {
+                super.dealNoData(first);
+            } else {
+                Toast.makeText(mContext, this.ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 }
