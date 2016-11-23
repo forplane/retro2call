@@ -2,6 +2,7 @@ package com.jpcall.util;
 
 import com.jpcall.dao.ECallBack;
 
+import java.net.SocketTimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +20,11 @@ public class FailDeal {
         return jsonHandler;
     }
 
-    public static DealHandler obj(ECallBack callBack, String msg) {
+    public static DealHandler obj(ECallBack callBack, Throwable t) {
+        String msg=null;
+        if (t instanceof SocketTimeoutException) {
+            msg = "sockettimeoutexception";
+        }
         return new FailDeal().build(callBack, msg);
     }
 
@@ -30,7 +35,7 @@ public class FailDeal {
 
         public DealHandler(ECallBack callBack, String msg) {
             this.callBack = callBack;
-            this.msg = msg.toLowerCase();
+            this.msg = msg;
         }
 
         //下一个需要处理的对象
@@ -55,6 +60,7 @@ public class FailDeal {
                 //直接截取，个别原因报错的时候，是null的
                 return false;
             }
+            msg=msg.toLowerCase();
             Matcher matcher = pattern.matcher(msg);
             boolean deal = matcher.matches();
             if (deal) {
@@ -86,10 +92,13 @@ public class FailDeal {
                 return true;
             } else {
                 //有链接wifi，但是服务器有问题，或者服务器没启动，php，nginx等一起服务器相关的问题
-
                 if (msg.contains("failed to connect to")
                         || msg.contains("No address associated with hostname")) {
                     String msg = "网络异常，请检查网络";
+                    callBack.eFailure(msg);
+                    return true;
+                }else if(msg.contains("timeout")){
+                    String msg = "请求超时";
                     callBack.eFailure(msg);
                     return true;
                 }

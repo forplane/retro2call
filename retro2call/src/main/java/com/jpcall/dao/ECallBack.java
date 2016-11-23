@@ -141,7 +141,7 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
         call.cancel();
         ydInfo=new YdInfo();//因为只要是走这里的失败，ydInfo必定为null，在这里弄一个
         //出来的目的就是供处理的来设置数据
-        boolean deal = FailDeal.obj(this, t.getMessage()).Deal();
+        boolean deal = FailDeal.obj(this, t).Deal();
         //没有处理，统一Toast
         if (!deal) {
             eFailure("未知错误");
