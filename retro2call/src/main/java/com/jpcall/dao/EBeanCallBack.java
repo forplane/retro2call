@@ -1,6 +1,7 @@
 package com.jpcall.dao;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jpcall.util.LoadOperate;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by john on 16-7-25.<br/>
  */
 
-public abstract class EBeanCallBack<T> extends EIBeanCallBack<T>  {
+public abstract class EBeanCallBack<T> extends EIBeanCallBack<T> {
 
 
     public EBeanCallBack(Object object, Class<T> t) {
@@ -60,7 +61,12 @@ public abstract class EBeanCallBack<T> extends EIBeanCallBack<T>  {
 
     }
 
-
-
-
+    @Override
+    public void dealNoData(boolean first) {
+        if (first) {
+            //显示没有数据图片
+            super.dealNoData(first);
+        }
+        Toast.makeText(mContext, ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
+    }
 }

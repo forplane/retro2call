@@ -21,7 +21,7 @@ public class FailDeal {
     }
 
     public static DealHandler obj(ECallBack callBack, Throwable t) {
-        String msg=null;
+        String msg=t.getMessage();
         if (t instanceof SocketTimeoutException) {
             msg = "sockettimeoutexception";
         }
@@ -93,11 +93,11 @@ public class FailDeal {
             } else {
                 //有链接wifi，但是服务器有问题，或者服务器没启动，php，nginx等一起服务器相关的问题
                 if (msg.contains("failed to connect to")
-                        || msg.contains("No address associated with hostname")) {
+                        || msg.contains("no address associated with hostname")) {
                     String msg = "网络异常，请检查网络";
                     callBack.eFailure(msg);
                     return true;
-                }else if(msg.contains("timeout")){
+                }else if(msg.contains("timeout") || msg.contains("time out")){
                     String msg = "请求超时";
                     callBack.eFailure(msg);
                     return true;

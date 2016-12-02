@@ -78,7 +78,8 @@ public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
     @Override
     public void dealNoData(boolean first) {
         if (!first) {
-            super.dealNoData(first);
+            //不是第一次的，所以直接Toast出来即可
+            Toast.makeText(mContext, this.ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
         } else {
             String page = this.params.get("request_page");
             if (page == null || page.equals("1")) {
@@ -87,6 +88,8 @@ public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
                 Toast.makeText(mContext, this.ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
             }
         }
+
+
 
     }
 }

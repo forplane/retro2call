@@ -1,6 +1,8 @@
 package com.jpcall.dao;
 
 
+import android.widget.Toast;
+
 import com.jpcall.bean.YdInfo;
 
 import org.json.JSONException;
@@ -63,6 +65,10 @@ public abstract class EStringCallBack extends ECallBack<YdInfo> implements ECall
 
     @Override
     public void dealNoData(boolean first) {
-        //do NoThing
+        if (first) {
+            //显示没有数据图片
+            super.dealNoData(first);
+        }
+        Toast.makeText(mContext, ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
     }
 }

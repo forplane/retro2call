@@ -74,5 +74,4 @@ public abstract class EListsCallBack extends ECallBack<YdInfo> implements ECallT
     public void typeListBean(List list) {
 
     }
-
 }

@@ -197,11 +197,10 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
                 opeListener.showNoData();
             }
         }
-        Toast.makeText(mContext, ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
     }
 
     //主要是处理返回您已在另外台设备登录的情况
-    private void initDoLogin() {
+    protected void initDoLogin() {
         //这里过渡到3.0版本，需要删掉第一个if
         if (mContext.getApplicationContext() instanceof AgainLoginListener) {
             AgainLoginListener listener = (AgainLoginListener) mContext.getApplicationContext();
