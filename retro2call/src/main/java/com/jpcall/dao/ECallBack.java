@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jpcall.bean.YdInfo;
+import com.jpcall.util.AgainCallManager;
 import com.jpcall.util.FailDeal;
 import com.jpcall.util.FailLog;
 import com.jpcall.util.LoadOperate;
@@ -23,7 +24,7 @@ import retrofit2.Response;
  * Created by john on 16-7-19.<br/>
  */
 
-public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
+public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,AgainLoginLoadListener{
     protected HashMap<String, String> params = new HashMap<>();
     protected YdInfo ydInfo;
 
@@ -115,6 +116,7 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
 
         if (ydInfo.getYdCode().equals(YdInfoConfig.code_100101)) {
             if (mContext != null) {
+                AgainCallManager.putCall(this);
                 initDoLogin();
             }
             return;
@@ -269,5 +271,11 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener {
     public void noNet() {
 
 
+    }
+
+    @Override
+    public void againLoading() {
+        this.call = call.clone();
+        loading();
     }
 }

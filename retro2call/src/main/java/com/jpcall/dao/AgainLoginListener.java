@@ -11,4 +11,5 @@ import android.content.Context;
  */
 public interface AgainLoginListener {
     void doLogin(Context mContext);
+    void doLoginCall();
 }
