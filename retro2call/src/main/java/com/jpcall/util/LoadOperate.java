@@ -20,9 +20,11 @@ import com.jpcall.dao.OnOpeListener;
 
 /**
  * Created by voctex on 2016/8/11.
- * 该操作类可以实现在一个View上进行转圈处理，当然也可以显示其他状态（例如没有数据，没有网络，加载失败）
- * 注意：传入的View的父布局暂时不能是RelativeLayout，而且传入的View最好不要设置内边距
+ * 该操作类可以实现在一个View上进行转圈处理，当然也可以显示其他状态（例如没有数据，没有网络，加载失败）</br>
+ * 注意：传入的View的父布局暂时不能是RelativeLayout，而且传入的View最好不要设置内边距</br>
+ * 已经抛弃使用，自己去新建转圈View
  */
+@Deprecated
 public class LoadOperate implements Runnable, View.OnClickListener, OnOpeListener {
 
     private static final String TAG = LoadOperate.class.getCanonicalName();

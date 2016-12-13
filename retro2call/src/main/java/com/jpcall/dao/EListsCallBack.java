@@ -15,6 +15,7 @@ import java.util.Set;
 
 /**
  * Created by john on 16-7-20.<br/>
+ * 多个List列表
  */
 
 public abstract class EListsCallBack extends ECallBack<YdInfo> implements ECallTypeListener {
@@ -25,16 +26,6 @@ public abstract class EListsCallBack extends ECallBack<YdInfo> implements ECallT
         super(object);
         this.hashMap = hashMap;
     }
-
-//    public EListsCallBack(Context mContext, HashMap<String, Class> hashMap) {
-//        super(mContext);
-//        this.hashMap = hashMap;
-//    }
-//
-//    public EListsCallBack(OnOpeListener opeListener, HashMap<String, Class> hashMap) {
-//        super(opeListener);
-//        this.hashMap = hashMap;
-//    }
 
     @Override
     protected void typeSomeThing(String bodyString) {

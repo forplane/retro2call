@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by jon on 2016/9/9.<br/>
+ * php返回的参数配置
  */
 
 public class YdInfoConfig {

@@ -25,43 +25,14 @@ import retrofit2.Response;
  */
 
 public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,AgainLoginLoadListener{
+    /**存放post请求的头部以及请求参数*/
     protected HashMap<String, String> params = new HashMap<>();
     protected YdInfo ydInfo;
 
     protected Context mContext;
     protected LoadOperate load;
     private Call<YdInfo> call;
-
-    //v2.0版本的-----
-
-    //提供2.0版本的对应的操作
     private OnOpeListener opeListener;
-    //v2.0版本的-----
-
-
-    //2.0
-//    @Deprecated
-//    /**
-//     *统一使用public ECallBack(OnOpeListener opeListener)
-//     */
-//    public ECallBack(LoadOperate load) {
-//        this.mContext = load.getContext();
-//        this.load = load;
-//        this.load.setOnLoadListener(this);
-//    }
-//
-//    //2.0
-//    public ECallBack(OnOpeListener opeListener) {
-//        this.opeListener = opeListener;
-//        this.opeListener.setOnLoadListener(this);
-//        this.mContext = opeListener.getOpeContext();
-//    }
-//    //2.0
-//    public ECallBack(Context mContext) {
-//        this.mContext = mContext;
-//    }
-
-
     public YdInfo getYdInfo() {
         return ydInfo;
     }
@@ -199,6 +170,13 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
                 opeListener.showNoData();
             }
         }
+    }
+
+    /**
+     * 是否要Toast没有数据，默认为true
+     */
+    public boolean isToastNoData() {
+        return true;
     }
 
     //主要是处理返回您已在另外台设备登录的情况

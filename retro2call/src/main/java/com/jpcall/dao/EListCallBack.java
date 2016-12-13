@@ -1,6 +1,7 @@
 package com.jpcall.dao;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.Toast;
 
 import com.jpcall.bean.CommonJson4List;
@@ -14,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by john on 16-7-20.<br/>
+ * 单个List
  */
 
 public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
@@ -23,22 +25,6 @@ public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
         super(object, t);
         this.beanKey = key;
     }
-
-
-//    public EListCallBack(LoadOperate load, Class<T> t, String key) {
-//        super(load, t);
-//        this.beanKey = key;
-//    }
-//
-//    public EListCallBack(Context mContext, Class<T> t, String key) {
-//        super(mContext, t);
-//        this.beanKey = key;
-//    }
-//
-//    public EListCallBack(OnOpeListener opeListener, Class<T> t, String beanKey) {
-//        super(opeListener, t);
-//        this.beanKey = beanKey;
-//    }
 
     @Override
     protected void typeSomeThing(String bodyString) {
@@ -75,6 +61,11 @@ public abstract class EListCallBack<T> extends EIBeanCallBack<T> {
     }
 
 
+    /**
+     * 自动处理请求List列表数据，如果是第一页(first)请求，那么直接会显示没有数据的背景图<br/>
+     * 如果不是，那么就自动从{@link #params}这里获取page（请求网络的时候参数必须为这个）<br/>
+     * 以此page来判断后续操作
+     */
     @Override
     public void dealNoData(boolean first) {
         if (!first) {

@@ -1,10 +1,8 @@
 package com.jpcall.dao;
 
-import android.content.Context;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jpcall.util.LoadOperate;
 
 import org.json.JSONObject;
 
@@ -14,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by john on 16-7-25.<br/>
+ * Bean请求
  */
 
 public abstract class EBeanCallBack<T> extends EIBeanCallBack<T> {
@@ -22,22 +21,6 @@ public abstract class EBeanCallBack<T> extends EIBeanCallBack<T> {
     public EBeanCallBack(Object object, Class<T> t) {
         super(object, t);
     }
-
-//    public EBeanCallBack(LoadOperate load, Class<T> t) {
-//        super(load,t);
-//    }
-//    public EBeanCallBack(Context mContext, Class<T> t) {
-//        super(mContext,t);
-//    }
-//
-//    public EBeanCallBack(OnOpeListener opeListener, Class<T> t) {
-//        super(opeListener, t);
-//    }
-
-
-//    public EBeanCallBack(Object object,Class<T> t){
-//
-//    }
 
     @Override
     protected void typeSomeThing(String bodyString) {
@@ -67,6 +50,7 @@ public abstract class EBeanCallBack<T> extends EIBeanCallBack<T> {
             //显示没有数据图片
             super.dealNoData(first);
         }
-        Toast.makeText(mContext, ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
+        if (isToastNoData())
+            Toast.makeText(mContext, ydInfo.getYdMsg(), Toast.LENGTH_SHORT).show();
     }
 }

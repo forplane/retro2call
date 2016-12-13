@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by jon on 2016/10/14.<br/>
+ * 网络请求失败处理操作类
  */
 
 public class FailDeal {
@@ -45,6 +46,9 @@ public class FailDeal {
         public abstract boolean Deal();
     }
 
+    /**
+     * Json解析出错
+     */
     class JsonHandler extends DealHandler {
 
 
@@ -74,7 +78,9 @@ public class FailDeal {
             }
         }
     }
-
+    /**
+     * 网络问题
+     */
     class NoNetHandler extends DealHandler {
 
         public NoNetHandler(ECallBack callBack, String msg) {
