@@ -90,7 +90,7 @@ public class FailDeal {
         @Override
         public boolean Deal() {
             callBack.showError();//仁佳决定无论是哪一方面的问题，都显示这个网络出现错误的图片，但是Toast不一样
-            boolean networkAvailable = LoadOperate.isNetworkAvailable(callBack.getmContext());
+            boolean networkAvailable = ECallBack.isNetworkAvailable(callBack.getmContext());
             //没有连接wifi
             if (!networkAvailable) {
                 String msg = "请连接网络";

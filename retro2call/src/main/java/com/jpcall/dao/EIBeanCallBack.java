@@ -1,9 +1,5 @@
 package com.jpcall.dao;
 
-import android.content.Context;
-
-import com.jpcall.util.LoadOperate;
-
 /**
  * Created by planes on 2016/8/29.</br>
  */

@@ -1,11 +1,8 @@
 package com.jpcall.dao;
 
-import android.content.Context;
-import android.view.View;
 import android.widget.Toast;
 
 import com.jpcall.bean.CommonJson4List;
-import com.jpcall.util.LoadOperate;
 
 import org.json.JSONObject;
 

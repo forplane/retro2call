@@ -1,10 +1,7 @@
 package com.jpcall.dao;
 
-import android.content.Context;
-
 import com.jpcall.bean.CommonJson4List;
 import com.jpcall.bean.YdInfo;
-import com.jpcall.util.LoadOperate;
 
 import org.json.JSONObject;
 

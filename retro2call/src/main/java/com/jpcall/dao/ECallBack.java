@@ -1,6 +1,8 @@
 package com.jpcall.dao;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,7 +10,6 @@ import com.jpcall.bean.YdInfo;
 import com.jpcall.util.AgainCallManager;
 import com.jpcall.util.FailDeal;
 import com.jpcall.util.FailLog;
-import com.jpcall.util.LoadOperate;
 import com.jpcall.util.YdInfoConfig;
 
 import java.util.HashMap;
@@ -24,15 +25,17 @@ import retrofit2.Response;
  * Created by john on 16-7-19.<br/>
  */
 
-public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,AgainLoginLoadListener{
-    /**存放post请求的头部以及请求参数*/
+public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener, AgainLoginLoadListener {
+    /**
+     * 存放post请求的头部以及请求参数
+     */
     protected HashMap<String, String> params = new HashMap<>();
     protected YdInfo ydInfo;
 
     protected Context mContext;
-    protected LoadOperate load;
     private Call<YdInfo> call;
     private OnOpeListener opeListener;
+
     public YdInfo getYdInfo() {
         return ydInfo;
     }
@@ -41,14 +44,14 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
         return mContext;
     }
 
-    public ECallBack(Object object){
-        if (object instanceof Context){
-            this.mContext= (Context) object;
-        }else if (object instanceof OnOpeListener){
+    public ECallBack(Object object) {
+        if (object instanceof Context) {
+            this.mContext = (Context) object;
+        } else if (object instanceof OnOpeListener) {
             this.opeListener = (OnOpeListener) object;
             this.opeListener.setOnLoadListener(this);
             this.mContext = opeListener.getOpeContext();
-        }else{
+        } else {
             throw new RuntimeException("非法操作，只能传入Context对象或者实现了OnOpeListener的对象");
         }
 
@@ -66,10 +69,7 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
     @Override
     public void onResponse(Call<YdInfo> call, Response<YdInfo> response) {
         this.call = call.clone();
-        //2.0
         dismiss();
-
-        //2.0
         getAllParams(response.raw());
         int code = response.code();
         if (code != 200) {
@@ -112,25 +112,15 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
     public final void onFailure(Call<YdInfo> call, Throwable t) {
         this.call = call.clone();
         call.cancel();
-        ydInfo=new YdInfo();//因为只要是走这里的失败，ydInfo必定为null，在这里弄一个
+        ydInfo = new YdInfo();//因为只要是走这里的失败，ydInfo必定为null，在这里弄一个
         //出来的目的就是供处理的来设置数据
         boolean deal = FailDeal.obj(this, t).Deal();
         //没有处理，统一Toast
         if (!deal) {
             eFailure("未知错误");
             showError();
-
-            FailLog.instance.writeFailMsg(t,mContext);
+            FailLog.instance.writeFailMsg(t, mContext);
         }
-
-////        1：JSON解析出问题。显示没有数据图片，并且toast
-//
-//        showError();
-//        boolean networkAvailable = LoadOperate.isNetworkAvailable(mContext);
-//        String msg = networkAvailable?t.getMessage():"请连接网络";
-//        eFailure(msg);
-//        RequestBody body = call.request().body();
-
     }
 
     private void getAllParams(okhttp3.Response response) {
@@ -163,12 +153,8 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
      * 如果自己需要处理没有数据的情况，重写后，然后选择是否super
      */
     public void dealNoData(boolean first) {
-        if (first && (load != null || opeListener != null)) {
-            if (load != null) {
-                load.showNoData();
-            }else if(opeListener!=null){
-                opeListener.showNoData();
-            }
+        if (first && opeListener != null) {
+            opeListener.showNoData();
         }
     }
 
@@ -191,22 +177,9 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
         }
     }
 
-    @Deprecated
-    /**
-     * 已抛弃使用，请使用com.jpcall.dao.AgainLoginListener
-     */
-    public interface AgainLoginListener {
-        void doLogin(Context mContext);
-    }
-
-
-    //2.0
-
     @Override
     public void dismiss() {
-        if (load != null)
-            load.dismiss();
-        else if (opeListener != null) {
+        if (opeListener != null) {
             opeListener.dismiss();
         }
     }
@@ -217,9 +190,7 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
         * 1：请求超时：failed to connect to /192.168.0.196 (port 80) after 15000ms
         * 2：nginx关闭 Failed to connect to /192.168.0.196:80
         * */
-        if (load != null) {
-            load.showError();
-        } else if (opeListener != null) {
+        if (opeListener != null) {
             opeListener.showError();
         }
     }
@@ -227,10 +198,8 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
 
     @Override
     public void loading() {
-        if (LoadOperate.isNetworkAvailable(mContext)) {
-            if (load != null) {
-                load.showLoading();
-            } else if (opeListener != null) {
+        if (isNetworkAvailable(mContext)) {
+            if (opeListener != null) {
                 opeListener.showLoading();
             }
             call.enqueue(this);
@@ -255,5 +224,26 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener ,
     public void againLoading() {
         this.call = call.clone();
         loading();
+    }
+
+
+    /**
+     * 检查当前网络是否可用
+     * <p>
+     */
+    public static boolean isNetworkAvailable(Context mContext) {
+        ConnectivityManager connectivity = (ConnectivityManager) mContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (info != null && info.isConnected()) {
+                // 当前网络是连接的
+                if (info.getState() == NetworkInfo.State.CONNECTED) {
+                    // 当前所连接的网络可用
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

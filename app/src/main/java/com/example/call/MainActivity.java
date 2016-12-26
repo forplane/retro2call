@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.jpcall.bean.YdInfo;
+import com.jpcall.dao.ECallBack;
 import com.jpcall.util.FailLog;
-import com.jpcall.util.LoadOperate;
 
 import org.json.JSONArray;
 
@@ -30,7 +30,6 @@ import retrofit2.http.GET;
 public class MainActivity extends Activity {
 
     private ViewGroup mView;
-    private LoadOperate load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +43,6 @@ public class MainActivity extends Activity {
                 Log.i("", "");
             }
         });
-        load = new LoadOperate.Builder(this, mView).build();
-        load.showLoading();
-
     }
 
     @Override
@@ -153,7 +149,7 @@ public class MainActivity extends Activity {
 
                 @Override
                 public void onFailure(Call<YdInfo> call, Throwable t) {
-                    boolean networkAvailable = LoadOperate.isNetworkAvailable(MainActivity.this);
+                    boolean networkAvailable = ECallBack.isNetworkAvailable(MainActivity.this);
 
                     String message = t.getMessage();
                     //表示gson解析出现问题的
