@@ -22,7 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by john on 16-7-19.<br/>
+ * Created by john on 16-7-19.
+ *
  */
 
 public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener, AgainLoginLoadListener {

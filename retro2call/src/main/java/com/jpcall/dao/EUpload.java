@@ -16,7 +16,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 
 /**
- * Created by jp on 2016/12/26.<br/>
+ * Created by jp on 2016/12/26.
  * EUploadCallBack 简写成EUploadCB
  * 上传头像
  */

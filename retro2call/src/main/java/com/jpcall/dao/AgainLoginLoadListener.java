@@ -1,7 +1,7 @@
 package com.jpcall.dao;
 
 /**
- * Created by jp on 2016/12/13.</br>
+ * Created by jp on 2016/12/13.
  * 由于102引起的重复登陆，当登陆成功后，返回上一个界面是需要重新请求接口来刷新数据
  */
 

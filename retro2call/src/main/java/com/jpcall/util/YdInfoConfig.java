@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jon on 2016/9/9.<br/>
+ * Created by jon on 2016/9/9.
  * php返回的参数配置
  */
 

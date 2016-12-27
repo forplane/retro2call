@@ -11,7 +11,7 @@ import java.util.List;
 
 
 /**
- * Created by john on 16-7-25.<br/>
+ * Created by john on 16-7-25.
  * Bean请求
  */
 

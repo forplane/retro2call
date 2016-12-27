@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 /**
  * Created by john on 16-7-19.
+ *
  */
 
 public class YdInfo<T> {

@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by john on 16-7-20.
+ *
  */
 
 public abstract class EStringCallBack extends ECallBack<YdInfo> implements ECallTypeListener {

@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by jon on 2016/10/20.<br/>
+ * Created by jon on 2016/10/20.
  * 请求网络出未知错误的情况，把信息写在本地种，后期会上传到服务器
  */
 
