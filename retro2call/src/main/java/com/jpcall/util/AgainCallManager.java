@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jp on 2016/12/13.</br>
+ * Created by jp on 2016/12/13.
  * 重复/异地登陆管理操作类
  */
 

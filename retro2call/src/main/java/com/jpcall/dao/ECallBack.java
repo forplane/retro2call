@@ -230,7 +230,6 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener, 
 
     /**
      * 检查当前网络是否可用
-     * <p>
      */
     public static boolean isNetworkAvailable(Context mContext) {
         ConnectivityManager connectivity = (ConnectivityManager) mContext
