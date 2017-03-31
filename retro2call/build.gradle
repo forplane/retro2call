@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1612261520  //时间格式
+        versionCode 1703311520  //时间格式
         versionName version
 
 
