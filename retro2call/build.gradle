@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "2.2.7.1"
+version = "2.3"
 
 android {
     compileSdkVersion 24
@@ -29,8 +29,8 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 }
 
-def siteUrl = 'https://github.com/Reproxy/retro2call-master'      // 项目的主页   这个是说明，可随便填
-def gitUrl = 'https://github.com/Reproxy/retro2call-master'      // Git仓库的url  这个是说明，可随便填
+def siteUrl = 'https://github.com/forplane/retro2call'      // 项目的主页   这个是说明，可随便填
+def gitUrl = 'https://github.com/forplane/retro2call'      // Git仓库的url  这个是说明，可随便填
 group = "com.yidont"    // 这里是groupId ,必须填写  一般填你唯一的包名
 
 install {
