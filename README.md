@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # retro2call-master
 
 16-10-11
@@ -25,3 +26,6 @@
             return loadTool;
         }
         判断是否已经有添加过load，预防重复添加
+=======
+# retro2call
+>>>>>>> 006671da1aacf2ea8a2a927866cced13c174feb0
