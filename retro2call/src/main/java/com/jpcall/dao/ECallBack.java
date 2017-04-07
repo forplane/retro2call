@@ -118,7 +118,7 @@ public abstract class ECallBack<T> implements Callback<YdInfo>, OnLoadListener, 
         boolean deal = FailDeal.obj(this, t).Deal();
         //没有处理，统一Toast
         if (!deal) {
-            eFailure("未知错误");
+            eFailure("网络请求超时，请重试");
             showError();
             FailLog.instance.writeFailMsg(t, mContext);
         }
