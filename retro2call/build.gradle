@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "2.3"
+version = "2.3.2"
 
 android {
     compileSdkVersion 24
@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1703311520  //时间格式
+        versionCode 1705311020  //时间格式
         versionName version
 
 
@@ -38,7 +38,7 @@ install {
         // This generates POM.xml with proper parameters
         pom {
             project {
-                packaging 'aar'
+                packaging 'jar'
                 // Add your description here
                 name '基于retrofit2请求'     //项目描述
                 url siteUrl
